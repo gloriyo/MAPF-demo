@@ -9,6 +9,9 @@ argparse = "*"
 pathlib = "*"
 matplotlib = "*"
 seaborn = "*"
+flask = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
