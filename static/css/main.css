@@ -1,0 +1,27 @@
+.bg-light {
+    background-color: #dbedff!important;
+}
+
+.navbar-brand {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+}
+.nav > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-right:10px;
+}
+
+.nav-item {
+    padding-right: 0.5rem;
+}
+
+
+.nav a{
+/* color: white !important; */
+font-size: 1em !important;
+}
+
+.navbar-brand{
+/* color: white !important; */
+font-size: 1.8em !important;
+}
