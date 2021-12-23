@@ -1,25 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Leave a Message</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/style.css'>
-    <!-- <script src='main.js'></script> -->
-</head>
-<body>
-    <div class="container">
-        {% if message %}
-            <p class="message">{{ message | safe }}</p>
-        {% endif %}
-        <form action="/submit" method="POST">
-            <div>
+{% extends "base.html" %}
 
-                <input type="text" name="message" placeholder="Say something...">
-                <input type="submit" value="submit">
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+{% block content %}
+
+<div class="jumbotron text-center">
+<div class="container">
+    <img src="img/fig21.gif" alt="demo">
+</div>
+
+<div class="container">
+    {% if message %}
+        <p class="message">{{ message | safe }}</p>
+    {% endif %}
+    <form action="/submit" method="POST">
+        <div>
+
+            <input type="text" name="message" placeholder="Say something...">
+            <input type="submit" value="submit">
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}
