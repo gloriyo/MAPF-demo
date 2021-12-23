@@ -12,6 +12,7 @@ seaborn = "*"
 flask = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+gunicorn = "*"
 
 [dev-packages]
 
