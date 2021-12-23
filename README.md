@@ -1,3 +1,13 @@
+# Online Demo of MAPF using CBS Variants
+
+## About the Demo
+### Web-App Built Using
+* Heroku
+* Flask 2.0
+* gunicorn 20.1
+* Bootstrap 4.6
+
+
 # Multi-Agent Path Finding - Improved Conflict Based Search 
 
 Improved CBS (ICBS) is an extension of the Conflict Based Search algorithm developed for the purpose of finding optimal paths for multiple agents on any given map without collisions. ICBS was presented as an extention of CBS at the IJCAI-15 Conference which incorporates several previously found improvements to CBS to accumulate their benifits.[^1] The algorithm has many practical applications, especially in the field of autonomous robotics. 
