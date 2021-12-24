@@ -39,11 +39,11 @@ from pathlib import Path
 
 SOLVER = "ICBS_CB"
 
-def create_plot(instance_file, figure_file):
+def create_plot(instance_file, map_file):
     my_map, starts, goals = import_mapf_instance(instance_file)
     figure = Figure(my_map, starts, goals)
     # figure.show()
-    figure.save(figure_file)
+    figure.save(map_file)
 
 def print_mapf_instance(my_map, starts, goals):
     print('Start locations')
@@ -103,6 +103,51 @@ def import_mapf_instance(filename):
     f.close()
     return my_map, starts, goals
 
+def create_animation(instance_file, figure_file, solver=None, disjoint=True):
+    if solver == None:
+        solver = "ICBS_CB"
+    my_map, starts, goals = import_mapf_instance(instance_file)
+    print_mapf_instance(my_map, starts, goals)
+
+    if solver == "CBS":
+        cbs = CBSSolver(my_map, starts, goals)
+        solution = cbs.find_solution(disjoint)
+
+        if solution is not None:
+            # print(solution)
+            paths, nodes_gen, nodes_exp = [solution[i] for i in range(3)]
+            if paths is None:
+                raise BaseException('No solutions')  
+        else:
+            raise BaseException('No solutions')
+
+    elif solver == "ICBS_CB":
+        cbs = ICBS_CB_Solver(my_map, starts, goals)
+        solution = cbs.find_solution(disjoint)
+
+        if solution is not None:
+            # print(solution)
+            paths, nodes_gen, nodes_exp = [solution[i] for i in range(3)]
+            if paths is None:
+                raise BaseException('No solutions')  
+        else:
+            raise BaseException('No solutions')
+
+    elif solver == "ICBS":
+        cbs = ICBS_Solver(my_map, starts, goals)
+        solution = cbs.find_solution(disjoint)
+
+        if solution is not None:
+            # print(solution)
+            paths, nodes_gen, nodes_exp = [solution[i] for i in range(3)]
+            if paths is None:
+                raise BaseException('No solutions')  
+        else:
+            raise BaseException('No solutions')
+
+    animation = Animation(my_map, starts, goals, paths)
+    # animation.save("output.mp4", 1.0)
+    animation.save(figure_file, 1)
 
 
 
@@ -164,7 +209,7 @@ if __name__ == '__main__':
         elif solver == "ICBS":
             print("***Run CBS***")
             cbs = ICBS_Solver(my_map, starts, goals)
-            solution = cbs.find_solution(args.disjoint)
+            solution = cbs.find_solution(disjoint)
 
             if solution is not None:
                 # print(solution)

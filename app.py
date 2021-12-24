@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import os
 # from flask_sqlalchemy import SQLAlchemy
 from code.generate_instance import write_instance
-from code.run_experiments_demo import create_plot
+from code.run_experiments_demo import create_plot, create_animation
 
 
 app = Flask(__name__,
@@ -41,6 +41,15 @@ def instance():
     create_plot(instance_path, figure_path)
 
     return render_template('generate.html', figure="content/figures/maps/newmap.png")
+
+@app.route('/figure')
+def figure():
+    instance_path = os.path.abspath("static/content/instances/new_instance.txt")
+    figure_path = os.path.abspath("static/content/figures/newfigure.gif")
+    # write_instance(file_loc=instance_path)
+    create_animation(instance_path, figure_path)
+
+    return render_template('generate.html', figure="content/figures/newfigure.gif")
 
 @app.route('/submit', methods=['POST'])
 def submit():
