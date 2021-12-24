@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
+import os
 # from flask_sqlalchemy import SQLAlchemy
-# from MAPF import show_animation
+from code.generate_instance import write_instance
+from code.run_experiments_demo import create_plot
+
 
 app = Flask(__name__,
             static_url_path='', 
@@ -25,9 +28,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 def index():
     return render_template('index.html')
 
-# @app.route('/demo')
-# def demo():
-#     animation = show_animation()
+@app.route('/demo')
+def demo():
+    figure_path = "content/figures/maps/newmap.png"
+    return render_template('generate.html', figure=figure_path)
+
+@app.route('/instance')
+def instance():
+    instance_path = os.path.abspath("static/content/instances/new_instance.txt")
+    figure_path = os.path.abspath("static/content/figures/maps/newmap.png")
+    write_instance(file_loc=instance_path)
+    create_plot(instance_path, figure_path)
+
+    
+    return render_template('generate.html', figure="content/figures/maps/newmap.png")
 
 @app.route('/submit', methods=['POST'])
 def submit():

@@ -16,11 +16,13 @@ def write_instance(size=None, density=None, file_loc=None):
     if density == None:
         agents_num = (area) // 15
         obstacles_num = (area) // 7
+        # print(obstacles_num)
 
     if file_loc == None:
         file_loc = '../content/instances/new_instance.txt'
 
-    new_map = np.full((area, 1), 0)
+    new_map = np.zeros((area,), dtype=int)
+    # print(new_map)
 
     obstacle_loc = random.sample(range(area), obstacles_num) # a list of 'area' random locations on the map
 
@@ -30,7 +32,7 @@ def write_instance(size=None, density=None, file_loc=None):
         aloc = None
         while aloc == None:
             loc = random.sample(range(area), 1)
-            if loc not in obstacle_loc:
+            if loc[0] not in obstacle_loc and loc[0] not in start_loc:
                 aloc = loc
         start_loc += aloc
         
@@ -38,14 +40,14 @@ def write_instance(size=None, density=None, file_loc=None):
         aloc = None
         while aloc == None:
             loc = random.sample(range(area), 1)
-            if loc not in obstacle_loc and loc not in start_loc:
+            if loc[0] not in obstacle_loc and loc[0] not in goal_loc:
                 aloc = loc
         goal_loc += aloc
 
     new_map[obstacle_loc] = 1
-
+    # print(obstacle_loc)
     new_map_2d = np.reshape(new_map, (x_len,y_len)) # create a 2D list[x][y]
-
+    # print(new_map)
     map_dict = {
         0: ". ", # no obstacle
         1: "@ " # obstacle
@@ -65,13 +67,15 @@ def write_instance(size=None, density=None, file_loc=None):
     new_instance += str(agents_num) + "\n"
 
     for a in range(agents_num):
-        print(start_loc[a])
+        # print(start_loc[a])
+        
         x1 = start_loc[a] % x_len
         y1 = start_loc[a] // y_len
-        new_instance += str(x1) + " " + str(y1) + " "
+        # print(str(x1) + " " + str(y1) + " ")
+        new_instance += str(y1) + " " + str(x1) + " "
         x2 = goal_loc[a] % x_len
         y2 = goal_loc[a] // y_len        
-        new_instance += str(x2) + " " + str(y2) + "\n"
+        new_instance += str(y2) + " " + str(x2) + "\n"
 
 
     file = open(file_loc, "w")
@@ -82,6 +86,6 @@ def write_instance(size=None, density=None, file_loc=None):
     
 
 if __name__ == '__main__':
-    write_instance()
+    write_instance(file_loc="static/content/instances/new_instance.txt")
 
     

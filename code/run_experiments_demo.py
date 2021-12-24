@@ -1,20 +1,49 @@
 #!/usr/bin/python
+
+import os
+import sys
+
+
+
+# from basic_cbs import CBSSolver
+# from icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
+# # from icbs_complete import ICBS_Solver # all improvements including MA-CBS
+# from single_agent_planner import get_sum_of_cost
+# from visualize_demo import Animation, Figure
+
+
+
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_PATH)
+
+print(sys.path)
+
+from code.basic_cbs import CBSSolver
+from code.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
+from code.icbs_complete import ICBS_Solver # all improvements including MA-CBS
+from code.single_agent_planner import get_sum_of_cost
+from code.visualize_demo import Animation, Figure
+
+
 import argparse
 import glob
 from pathlib import Path
-from basic_cbs import CBSSolver # original cbs with standard/disjoint splitting
-
-# cbs with different improvements
-from icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
-from icbs_complete import ICBS_Solver # all improvements including MA-CBS
 
 
-from independent import IndependentSolver
-from prioritized import PrioritizedPlanningSolver
-from visualize import Animation
-from single_agent_planner import get_sum_of_cost
 
-SOLVER = "CBS"
+# from independent import IndependentSolver
+# from prioritized import PrioritizedPlanningSolver
+
+# from visualize import Animation
+
+
+SOLVER = "ICBS_CB"
+
+def create_plot(instance_file, figure_file):
+    my_map, starts, goals = import_mapf_instance(instance_file)
+    figure = Figure(my_map, starts, goals)
+    # figure.show()
+    figure.save(figure_file)
 
 def print_mapf_instance(my_map, starts, goals):
     print('Start locations')
@@ -75,47 +104,41 @@ def import_mapf_instance(filename):
     return my_map, starts, goals
 
 
+
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Runs various MAPF algorithms')
-    parser.add_argument('--instance', type=str, default=None,
-                        help='The name of the instance file(s)')
-    parser.add_argument('--batch', action='store_true', default=False,
-                        help='Use batch output instead of animation')
-    parser.add_argument('--disjoint', action='store_true', default=False,
-                        help='Use the disjoint splitting')
-    parser.add_argument('--solver', type=str, default=SOLVER,
-                        help='The solver to use (one of: {CBS,Independent,Prioritized}), defaults to ' + str(SOLVER))
 
-    args = parser.parse_args()
+    solver = "ICBS_CB"
+    disjoint = True    
+    
+    input_instance = "..static/content/instances/new_instance.txt"
+    output_fig = "..static/content/figures/maps/newmap.png"
 
+    input_instance = "static/content/instances/new_instance.txt"
+    output_fig = "static/content/figures/maps/newmap.png"
 
-    result_file = open("results.csv", "w", buffering=1)
-
-    # node_results_file = open("nodes-cleaned.csv", "w", buffering=1)
-
-    nodes_gen_file = open("nodes-gen-cleaned.csv", "w", buffering=1)
-    nodes_exp_file = open("nodes-exp-cleaned.csv", "w", buffering=1)
+    print(input_instance)
 
 
-    if args.batch:
-        
-        input_instance = sorted(glob.glob("instances/test*"))
-    else:
-        input_instance = sorted(glob.glob(args.instance))
 
+    create_plot(input_instance, output_fig)
+
+
+    input_instance = glob.glob("static/content/instances/new_instance.txt")
+
+
+    # input_instance = glob.glob("code/instances/exp2_1.txt")
     for file in input_instance:
 
         print("***Import an instance***")
-
-        
         print(file)
         my_map, starts, goals = import_mapf_instance(file)
         print_mapf_instance(my_map, starts, goals)
 
-        if args.solver == "CBS":
+        if solver == "CBS":
             print("***Run CBS***")
             cbs = CBSSolver(my_map, starts, goals)
-            solution = cbs.find_solution(args.disjoint)
+            solution = cbs.find_solution(disjoint)
 
             if solution is not None:
                 # print(solution)
@@ -125,10 +148,10 @@ if __name__ == '__main__':
             else:
                 raise BaseException('No solutions')
 
-        elif args.solver == "ICBS_CB":
+        elif solver == "ICBS_CB":
             print("***Run CBS***")
             cbs = ICBS_CB_Solver(my_map, starts, goals)
-            solution = cbs.find_solution(args.disjoint)
+            solution = cbs.find_solution(disjoint)
 
             if solution is not None:
                 # print(solution)
@@ -138,7 +161,7 @@ if __name__ == '__main__':
             else:
                 raise BaseException('No solutions')
 
-        elif args.solver == "ICBS":
+        elif solver == "ICBS":
             print("***Run CBS***")
             cbs = ICBS_Solver(my_map, starts, goals)
             solution = cbs.find_solution(args.disjoint)
@@ -152,11 +175,11 @@ if __name__ == '__main__':
                 raise BaseException('No solutions')
 
 
-        elif args.solver == "Independent":
+        elif solver == "Independent":
             print("***Run Independent***")
             solver = IndependentSolver(my_map, starts, goals)
             paths, nodes_gen, nodes_exp = solver.find_solution()
-        elif args.solver == "Prioritized":
+        elif solver == "Prioritized":
             print("***Run Prioritized***")
             solver = PrioritizedPlanningSolver(my_map, starts, goals)
             paths, nodes_gen, nodes_exp = solver.find_solution()
@@ -164,18 +187,12 @@ if __name__ == '__main__':
             raise RuntimeError("Unknown solver!")
 
         cost = get_sum_of_cost(paths)
-        result_file.write("{},{}\n".format(file, cost))
-
-        nodes_gen_file.write("{},{}\n".format(file, nodes_gen))
-        nodes_exp_file.write("{},{}\n".format(file, nodes_exp))
 
 
+        print("***Test paths on a simulation***")
+        animation = Animation(my_map, starts, goals, paths)
+        # animation.save("output.mp4", 1.0)
+        animation.save('code/demo/fig.gif', 1)
+        animation.show()
+        
 
-        if not args.batch:
-            print("***Test paths on a simulation***")
-            animation = Animation(my_map, starts, goals, paths)
-            # animation.save("output.mp4", 1.0)
-            animation.show()
-            # animation.save('demo/fig.gif', 1)
-
-    result_file.close()

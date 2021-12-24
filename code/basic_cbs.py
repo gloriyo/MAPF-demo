@@ -1,8 +1,17 @@
 import time as timer
 import heapq
 import random
-from single_agent_planner import compute_heuristics, a_star, get_location, get_sum_of_cost
 
+import os
+import sys
+
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_PATH)
+
+#### to-do: try; except
+# from single_agent_planner import compute_heuristics, a_star, get_location, get_sum_of_cost
+
+from .single_agent_planner import compute_heuristics, a_star, get_location, get_sum_of_cost
 
 def detect_collision(path1, path2):
     ##############################
