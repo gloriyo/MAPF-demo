@@ -40,7 +40,6 @@ def instance():
     write_instance(file_loc=instance_path)
     create_plot(instance_path, figure_path)
 
-    
     return render_template('generate.html', figure="content/figures/maps/newmap.png")
 
 @app.route('/submit', methods=['POST'])
