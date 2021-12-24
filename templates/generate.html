@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Welcome{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+    <a type="button" class="btn btn-lg btn-primary" href="/instance"><span class="glyphicon glyphicon-download"></span> Generate a New Map</a>
+
+    <div class="container" id="generated-instance">
+        
+        <img src="{{ figure }}" alt="demo" id="animation">
+
+        <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+    </div>
+
+
+    <div class="container">
+        {% if message %}
+            <p class="message">{{ message | safe }}</p>
+        {% endif %}
+        <form action="/submit" method="POST">
+            <div>
+
+                <input type="text" name="message" placeholder="Say something...">
+                <input type="submit" value="submit">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // $("#generated-instance").onclick(function(){
+    //     var text = $(this).val();
+    
+    //     // ref to use https://stackoverflow.com/questions/40963401/flask-dynamic-data-update-without-reload-page/40964086
+
+    //     $.ajax({
+    //       url: "/suggestions",
+    //       type: "get",
+    //       data: {jsdata: text},
+    //       success: function(response) {
+    //         $("#place_for_suggestions").html(response);
+    //       },
+    //       error: function(xhr) {
+    //         //Do Something to handle error
+    //       }
+    //     });
+    // });
+    
+    
+</script>
+
+
+
+{% endblock %}
