@@ -7,17 +7,33 @@
 {% block content %}
 
 <div class="jumbotron text-center">
-    <a type="button" class="btn btn-lg btn-primary" href="/instance"><span class="glyphicon glyphicon-download"></span> Generate a New Map</a>
+    <h2 class="title">CBS on Simple Instances...</h2>
 
-    <div class="container" id="generated-instance">
+
+    <div class="cnt">
+        <div class="inline result" id="generated-instance">
         
-        <img src="{{ figure }}" alt="demo" id="animation">
-
-        <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+            <img src="{{ figure }}" alt="demo" id="animation">
+    
+            <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+        </div>
+    
+        <div class="inline result-textbox" id="generated-results">
+            <h3 id="result-title">Response From the Algorithm...</h3>
+            {% for res in results %}
+                <p class="result-text">{{ res }}</p>
+            {% endfor %}
+        </div>
     </div>
 
+    <div class="container" id="div-buttons">
+        <!-- to-do: move styles  -->
+        <a type="button" class="btn btn-lg btn-primary" href="/instance" style="background-color: #eba52a; margin-right: 2em;"><span class="glyphicon glyphicon-download"></span> Generate a New Map</a>
+        <a type="button" class="btn btn-lg btn-primary" href="/figure-cbs"><span class="glyphicon glyphicon-download"></span> Solve with CBS!</a>
+        <a type="button" class="btn btn-lg btn-primary" href="/figure-icbs"><span class="glyphicon glyphicon-download"></span> Solve with ICBS!</a>
+    </div>
 
-    <a type="button" class="btn btn-lg btn-primary" href="/figure"><span class="glyphicon glyphicon-download"></span> Let ICBS Solve it!</a>
+    <p>Note: Basic CBS may be minutely faster than ICBS for simple Instances</p>
     <div class="container">
         {% if message %}
             <p class="message">{{ message | safe }}</p>

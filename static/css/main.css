@@ -18,10 +18,70 @@
 
 .nav a{
 /* color: white !important; */
-font-size: 1em !important;
+    font-size: 1em !important;
 }
 
-.navbar-brand{
+.navbar-brand {
 /* color: white !important; */
-font-size: 1.8em !important;
+    font-size: 1.8em !important;
 }
+
+.btn {
+    width: 11rem;
+    margin-left: 1em;
+}
+
+.title {
+    /* background-color: #f6ebdb; */
+    background-color: #f9f9f9;
+    padding: 1em;
+    color: #6d43af;
+    text-align: left !important;
+    font-style: italic;
+    font-size: revert;
+}
+
+.title-centered {
+    text-align: center !important;
+}
+
+.cnt {
+    padding: 1em;
+}
+
+
+div.result-textbox {
+    text-align: left !important;
+    vertical-align: middle;
+    background-color: #d9ccee;
+    height: 480px;
+    /* padding: 2rem; */
+    /* max-width: 40em; */
+    width: 40em;
+    margin: 2rem 0rem 2rem 2rem;
+}
+
+div.result-textbox .result-text {
+    margin: 1em 1em 1em 1em;
+    color: #845ac7;
+    max-width: 100%;
+    font-family: monospace;
+    margin: 1em 1.5em 1em 2.2em;
+}
+
+#result-title {
+    background-color: #7646c1;
+    margin-bottom: 1.5em;
+    padding: 0.7em;
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+/* #div-buttons {
+    text-align: left !important;
+    margin-left: 10%;
+    margin-right: 10%;
+} */
+
+div.inline { display: inline-block; }
+.clearBoth { clear:both; }

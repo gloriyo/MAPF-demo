@@ -7,7 +7,14 @@
 {% block content %}
 
 <div class="jumbotron text-center">
-    <a type="button" class="btn btn-lg btn-primary" href="/demo"><span class="glyphicon glyphicon-download"></span> Try it Out Yourself!</a>
+    
+    <div class="title title-centered" >
+        <h1>Multi-Agent Path Finding</h1>
+        <h6>via CBS & it's variants</h6>
+    </div>
+    <div class="container" id="div-buttons">
+        <a type="button" class="btn btn-lg btn-primary" href="/demo" style="width: 20rem;"><span class="glyphicon glyphicon-download"></span> Try it Out Yourself!</a>
+    </div>
     <div class="container" id="demo-instance">
         
         <img src="img/fig21.gif" alt="demo" id="animation">
@@ -21,8 +28,9 @@
 
     </div> -->
 
+ 
 
-    <div class="container">
+    <!-- <div class="container">
         {% if message %}
             <p class="message">{{ message | safe }}</p>
         {% endif %}
@@ -33,29 +41,8 @@
                 <input type="submit" value="submit">
             </div>
         </form>
-    </div>
+    </div> -->
 </div>
-
-<script>
-    $("#generated-instance").keyup(function(){
-        var text = $(this).val();
-    
-        // ref to use https://stackoverflow.com/questions/40963401/flask-dynamic-data-update-without-reload-page/40964086
-
-        $.ajax({
-          url: "/suggestions",
-          type: "get",
-          data: {jsdata: text},
-          success: function(response) {
-            $("#place_for_suggestions").html(response);
-          },
-          error: function(xhr) {
-            //Do Something to handle error
-          }
-        });
-    });
-    </script>
-
 
 
 {% endblock %}

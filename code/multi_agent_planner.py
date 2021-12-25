@@ -107,7 +107,7 @@ def get_path(goal_node,meta_agent):
         path[i].reverse()
         assert path[i] is not None
 
-        print(path[i])
+        # print(path[i])
 
         if len(path[i]) > 1: 
             # remove trailing duplicates
@@ -146,12 +146,12 @@ def violates_pos_constraint(curr_loc, next_loc, timestep, constraint_table, agen
             # vertex constraint
             if len(constraint['loc']) == 1:
                 if next_loc != constraint['loc'][0]:
-                    print('agent {} must follow positive constraint at timestep {}: {}'.format(agent, timestep, constraint['loc']))
+                    # print('agent {} must follow positive constraint at timestep {}: {}'.format(agent, timestep, constraint['loc']))
                     return True
             # edge constraint
             else:
                 if constraint['loc'] != [curr_loc, next_loc]:
-                    print('agent {} must follow positive constraint at timestep {}: {}'.format(agent, timestep, constraint['loc']))
+                    # print('agent {} must follow positive constraint at timestep {}: {}'.format(agent, timestep, constraint['loc']))
                     return True
     return False
     
@@ -170,11 +170,6 @@ def future_constraint_exists(agent, meta_agent, agent_loc, timestep, constraint_
                 # last loc in vertex/edge constraint
 
                 if constraint['loc'][-1] == agent_loc:
-
-                    if agent == 2:
-                        print('current timestep: {}, const timestep: {}'.format(timestep, constraint['timestep']))
-                        print('agent 2 loc: ', agent_loc)
-                        print('constraint loc:', constraint['loc'][-1])
 
                     if(agent == constraint['agent'] and not constraint['positive']):
                         return True
@@ -223,8 +218,8 @@ def ma_star(my_map, start_locs, goal_loc, h_values, meta_agent, constraints):
 
     table = build_constraint_table(constraints, meta_agent)
 
-    print("> build constraint table")
-    print(table)
+    # print("> build constraint table")
+    # print(table)
 
     # combined h value for agents in meta-agent
     for agent in meta_agent:
@@ -256,7 +251,8 @@ def ma_star(my_map, start_locs, goal_loc, h_values, meta_agent, constraints):
                 # check if there are any future (external) constraints
                 future_constraint_found = future_constraint_exists(meta_agent[a],meta_agent, curr['loc'][a], curr['timestep'], table)
                 if future_constraint_found:
-                    print("future constraint found!!")
+                    # print("future constraint found!!")
+                    pass
                 else:
                     curr['reached_goal'][a] = True
 
@@ -280,7 +276,7 @@ def ma_star(my_map, start_locs, goal_loc, h_values, meta_agent, constraints):
             #         break
 
             # else: # all agents do not violate future constraints
-                print('Returning path....')
+                # print('Returning path....')
                 # print(get_path(curr,meta_agent), '\n')
                 
 
@@ -388,7 +384,7 @@ def ma_star(my_map, start_locs, goal_loc, h_values, meta_agent, constraints):
                     break
                 # agent has a positive constraint and doesn't meet its positive constraint
                 if violates_pos_constraint(curr['loc'][i],loc,curr['timestep']+1,table, meta_agent[i], meta_agent):
-                    print("currently at timestep {} with child loc {}".format(curr['timestep'], loc))
+                    # print("currently at timestep {} with child loc {}".format(curr['timestep'], loc))
                     invalid_move = True
                     break
 
@@ -421,7 +417,7 @@ def ma_star(my_map, start_locs, goal_loc, h_values, meta_agent, constraints):
             else:
                 closed_list[(tuple(child['loc']),child['timestep'])] = child
                 push_node(open_list, child)   
-    print('no solution')
+    # print('no solution')
 
     # print("\nEND OF A*\n") # comment out if needed
     return None

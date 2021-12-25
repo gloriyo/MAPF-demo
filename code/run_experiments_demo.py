@@ -149,6 +149,8 @@ def create_animation(instance_file, figure_file, solver=None, disjoint=True):
     # animation.save("output.mp4", 1.0)
     animation.save(figure_file, 1)
 
+    return solution
+
 
 
 if __name__ == '__main__':
