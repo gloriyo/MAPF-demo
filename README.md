@@ -3,7 +3,7 @@ Demo deployed with Heroku: https://cbs-versions-demo.herokuapp.com/
 ## About the Demo
 ### Web-App Built Using
 * Heroku
-* Flask 2.0
+* Flask 2.0 with Jinja2
 * gunicorn 20.1
 * Bootstrap 4.6
 
