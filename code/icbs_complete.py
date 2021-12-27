@@ -345,6 +345,10 @@ class ICBS_Solver(object):
     def empty_tree(self):
         self.open_list.clear()
 
+    def get_CPU_time(self):
+        CPU_time = timer.time() - self.start_time
+        return CPU_time
+
     def find_solution(self, disjoint):
         """ Finds paths for all agents from their start locations to their goal locations
 
@@ -443,7 +447,7 @@ class ICBS_Solver(object):
             if not alt_paths1 or alt_cost > curr_cost:
                 cardinality = 'semi-cardinal'
                 
-                print('alt_path1 takes longer or is empty. at least semi-cardinal.')
+                # print('alt_path1 takes longer or is empty. at least semi-cardinal.')
                 
                 
             ma2 = collision['ma2'] #agent a2
@@ -553,7 +557,7 @@ class ICBS_Solver(object):
 
             meta_agent = set.union(ma1, ma2)
 
-            print('new merged meta_agent ', meta_agent)
+            # print('new merged meta_agent ', meta_agent)
 
             assert meta_agent not in ma_list
 
@@ -572,17 +576,17 @@ class ICBS_Solver(object):
             print('\n')  
             p = self.pop_node()
             if p['ma_collisions'] == []:
-                self.print_results(p)
+                time_taken = self.get_CPU_time()
                 # for pa in p['paths']:
                 #     # print('asfasdfasdf       ',pa)
-                return p['paths'], self.num_of_generated, self.num_of_expanded # number of nodes generated/expanded for comparing implementations
+                return p['paths'], self.num_of_generated, self.num_of_expanded, time_taken # number of nodes generated/expanded for comparing implementations
 
 
-            print('Node expanded. Collisions: ', p['ma_collisions'])
-            for pa in p['paths']:
-                print(pa)
+            # print('Node expanded. Collisions: ', p['ma_collisions'])
+            # for pa in p['paths']:
+            #     print(pa)
 
-            print('\n> Find Collision Type')
+            # print('\n> Find Collision Type')
 
             # USING STANDARD SPLITTING
             # select a cardinal conflict;
@@ -593,12 +597,12 @@ class ICBS_Solver(object):
             collision_type = None
             for collision in p['ma_collisions']:
 
-                print(collision)
+                # print(collision)
 
                 collision_type = detect_cardinal_conflict(self, p, collision)
                 if collision_type == 'cardinal' and new_constraints is None:    
-                    print('Detected cardinal collision. Chose it.')
-                    print(collision)
+                    # print('Detected cardinal collision. Chose it.')
+                    # print(collision)
 
                     chosen_collision = collision
                     # collision_type = 'cardinal'
@@ -609,7 +613,7 @@ class ICBS_Solver(object):
                     collision_type = detect_cardinal_conflict(self, p, collision)
                     if collision_type == 'semi-cardinal':    
                         
-                        print('Detected semi-cardinal collision. Chose it.')
+                        # print('Detected semi-cardinal collision. Chose it.')
                         print(collision)
                         chosen_collision = collision
                         # collision_type = 'semi-cardinal'
@@ -619,7 +623,7 @@ class ICBS_Solver(object):
                     chosen_collision = p['ma_collisions'][0] 
                     assert chosen_collision is not None
                     collision_type = 'non-cardinal'
-                    print('No cardinal or semi-cardinal conflict. Randomly choosing...')
+                    # print('No cardinal or semi-cardinal conflict. Randomly choosing...')
 
 
             # keep track of collisions in history (aSh)
@@ -637,19 +641,11 @@ class ICBS_Solver(object):
 
 
             new_constraints = splitter(chosen_collision)
-
-            print('OLD CONSTS:')
-            print(p['constraints'])      
-
-            print('NEW CONSTS:')
-            print(new_constraints)
-            print('\n')
-            # child_nodes = None
             child_nodes = []
             assert child_nodes == []
             bypass_successful = False
             for constraint in new_constraints:
-                print(constraint)
+                # print(constraint)
 
                 # q = {'cost':0,
                 #     'constraints': [constraint],
@@ -678,8 +674,8 @@ class ICBS_Solver(object):
                 print('\nSending meta_agent {} of constrained agent {} to A* '.format(ma, constraint['agent']))
                 print('\twith constraints ', q['constraints'])
 
-                for a in ma:
-                    print (q['paths'][a])
+                # for a in ma:
+                #     print (q['paths'][a])
 
 
                 # skip this if constraint is positive
@@ -709,11 +705,11 @@ class ICBS_Solver(object):
                             # if type(v_ma) == int:
                             #     v_ma = {v_ma}
                             
-                            print('\nSending meta-agent violating constraint {} to A* '.format(v_ma))
-                            print('\twith constraints ', q['constraints'])
+                            # print('\nSending meta-agent violating constraint {} to A* '.format(v_ma))
+                            # print('\twith constraints ', q['constraints'])
 
-                            for a in v_ma:
-                                print (q['paths'][a])
+                            # for a in v_ma:
+                            #     print (q['paths'][a])
 
 
                             v_ma_list = list(v_ma) # should use same list for all uses
@@ -724,7 +720,7 @@ class ICBS_Solver(object):
                                 for i, agent in enumerate(v_ma_list):
 
                                     assert path_v_ma[i] is not None
-                                    print(path_v_ma[i])
+                                    # print(path_v_ma[i])
 
                                     not_nested_list = path_v_ma[i]
                                     assert any(isinstance(j, list) for j in not_nested_list) == False
@@ -732,7 +728,7 @@ class ICBS_Solver(object):
 
                                     q['paths'][agent] = path_v_ma[i]
                             else:
-                                print("no solution, moving on to next constraint")   
+                                # print("no solution, moving on to next constraint")   
                                 no_solution = True
                                 break # move on the next constraint
                                 
@@ -760,7 +756,7 @@ class ICBS_Solver(object):
                     # conflict should be resolved due to new constraints; compare costs and total number of collisions
                     if collision_type != 'cardinal' \
                             and bypass_found(p['cost'], q['cost'], len(p['ma_collisions']), len(q['ma_collisions'])):
-                        print('> Take Bypass')
+                        # print('> Take Bypass')
                         self.push_node(q)
                         
                         bypass_successful = True
@@ -775,15 +771,15 @@ class ICBS_Solver(object):
 
             # MA-CBS
             if should_merge(collision,p, 7):
-                print('> Merge meta-agents into a new')
+                # print('> Merge meta-agents into a new')
                 # returns meta_agent, ma_list
                 meta_agent, updated_ma_list = merge_agents(self, collision, p['ma_list'])
 
-                print('Sending newly merged meta_agent {} to A* '.format(meta_agent))
-                print('\twith constraints ', p['constraints'])
+                # print('Sending newly merged meta_agent {} to A* '.format(meta_agent))
+                # print('\twith constraints ', p['constraints'])
 
-                for a in meta_agent:
-                    print (q['paths'][a])
+                # for a in meta_agent:
+                #     print (q['paths'][a])
 
 
                 # Update paths
@@ -824,10 +820,11 @@ class ICBS_Solver(object):
 
                     continue # start of while loop
             else:
-                print("do not merge")
+                # print("do not merge")
+                pass
                 
             assert len(child_nodes) <= 2
-            print('bypass not found')
+            # print('bypass not found')
             for n in child_nodes:
                 self.push_node(n)     
                     

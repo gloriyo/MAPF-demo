@@ -199,6 +199,10 @@ class CBSSolver(object):
         self.num_of_expanded += 1
         return node
 
+    def get_CPU_time(self):
+        CPU_time = timer.time() - self.start_time
+        return CPU_time
+
     def find_solution(self, disjoint=True):
         """ Finds paths for all agents from their start locations to their goal locations
 
@@ -235,7 +239,6 @@ class CBSSolver(object):
         self.push_node(root)
 
 
-
         ##############################
         # Task 3.3: High-Level Search
         #           Repeat the following as long as the open list is not empty:
@@ -246,15 +249,16 @@ class CBSSolver(object):
         #           Ensure to create a copy of any objects that your child nodes might inherit
         
         while len(self.open_list) > 0:
-            # if self.num_of_generated > 50000:
-            #     print('reached maximum number of nodes. Returning...')
-            #     return None
+            if self.num_of_generated > 50000:
+                print('reached maximum number of nodes. Returning...')
+                return None
             p = self.pop_node()
             if p['collisions'] == []:
-                self.print_results(p)
-                for pa in p['paths']:
-                    print(pa)
-                return p['paths'], self.num_of_generated, self.num_of_expanded # number of nodes generated/expanded for comparing implementations
+                # self.print_results(p)
+                # for pa in p['paths']:
+                #     print(pa)
+                time_taken = self.get_CPU_time()
+                return p['paths'], self.num_of_generated, self.num_of_expanded, time_taken # number of nodes generated/expanded for comparing implementations
             collision = p['collisions'].pop(0)
             # constraints = standard_splitting(collision)
             # constraints = disjoint_splitting(collision)
@@ -293,18 +297,19 @@ class CBSSolver(object):
                     q['cost'] = get_sum_of_cost(q['paths'])
                     self.push_node(q)     
         return None
-        self.print_results(root)
-        return root['paths']
 
 
-    def print_results(self, node):
-        print("\n Found a solution! \n")
-        CPU_time = timer.time() - self.start_time
-        print("CPU time (s):    {:.2f}".format(CPU_time))
-        print("Sum of costs:    {}".format(get_sum_of_cost(node['paths'])))
-        print("Expanded nodes:  {}".format(self.num_of_expanded))
-        print("Generated nodes: {}".format(self.num_of_generated))
 
-        print("Solution:")
-        for i in range(len(node['paths'])):
-            print("agent", i, ": ", node['paths'][i])
+
+    # def print_results(self, node):
+    #     print("\n Found a solution! \n")
+    #     CPU_time = timer.time() - self.start_time
+    #     print("CPU time (s):    {:.2f}".format(CPU_time))
+    #     print("Sum of costs:    {}".format(get_sum_of_cost(node['paths'])))
+    #     print("Expanded nodes:  {}".format(self.num_of_expanded))
+    #     print("Generated nodes: {}".format(self.num_of_generated))
+
+    #     print("Solution:")
+    #     for i in range(len(node['paths'])):
+    #         print("agent", i, ": ", node['paths'][i])
+        
