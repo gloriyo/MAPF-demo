@@ -56,14 +56,21 @@
     curr_img_id = 0;
     curr_img = document.getElementById("animation_"+String(curr_img_id));
     curr_img.style.display = "revert";
-    
+
+
     function next_img() {
-        imgs = document.getElementByClass('figs');
+        imgs = document.getElementsByClassName('figs');
         for(let i = 0; i < imgs.length; i++) {
-            if(imgs[i].style.visability == 'visible') { 
+            console.log(i, imgs[i].style.display);
+        }
+        for(let i = 0; i < imgs.length; i++) {
+            if(imgs[i].style.display == "revert") { 
                 if (i < imgs.length - 1) {
-                    imgs[i].style.display = 'hidden';
+                    imgs[i].style.display = 'none';
                     imgs[i+1].style.display = 'revert';
+                    console.log("img_id: ");
+                    console.log(i)
+                    break;
                 }
             }
 
