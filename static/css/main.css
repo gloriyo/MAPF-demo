@@ -85,3 +85,11 @@ div.result-textbox .result-text {
 
 div.inline { display: inline-block; }
 .clearBoth { clear:both; }
+
+img {
+    width: -webkit-fill-available;
+}
+
+.demo-ct {
+    width: 40%;
+}

@@ -18,7 +18,7 @@ sys.path.append(BASE_PATH)
 
 print(sys.path)
 
-from util.cbs.basic_cbs import CBSSolver
+from util.cbs.cbs_basic import CBSSolver
 from util.cbs.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
 from util.cbs.icbs_complete import ICBS_Solver # all improvements including MA-CBS
 from util.single_agent_planner import get_sum_of_cost

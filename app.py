@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+import glob
 # from flask_sqlalchemy import SQLAlchemy
 from util.generate_instance import write_instance
 from util.run_experiments_demo import create_plot, create_animation
@@ -40,6 +41,28 @@ class Compute(Thread):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/demo-CT/disjoint')
+def demo_CT():
+    figure_path = "/content/figures/CT_demo/disjoint_figs/"
+    abs_path = os.path.abspath("static/content/figures/CT_demo/disjoint_figs") # or globs
+    print(abs_path)
+    # _,_,branches = os.walk(abs_path)
+    branches = os.walk(abs_path)
+    # print("AJJJJJJJJJJJJJJJJFDGADS")
+    figure_path_demo = []
+    for b in branches:
+        print (b)
+        (_,_,fig_files) = b
+        for fig_file in fig_files:
+            print(fig_files)
+            figure_path_demo.append(figure_path + fig_file)
+            print(figure_path + fig_file)
+    else:
+        print("fhsauilfhea")
+    return render_template('demo_CT.html', figures=figure_path_demo, results=[])
+
 
 @app.route('/demo')
 def demo():

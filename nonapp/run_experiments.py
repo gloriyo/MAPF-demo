@@ -29,7 +29,7 @@ print(sys.path)
 import argparse
 import glob
 from pathlib import Path
-from util.cbs.basic_cbs import CBSSolver # original cbs with standard/disjoint splitting
+from util.cbs.cbs_basic import CBSSolver # original cbs with standard/disjoint splitting
 
 # cbs with different improvements
 from util.cbs.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass

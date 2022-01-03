@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Welcome{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+    <h2 class="title">CBS CT with Disjoint Splitting</h2>
+
+
+    <div class="cnt">
+        <div class="inline demo-ct figure-container" id="generated-instance">
+            {% for fig in figures %}
+                <img src="{{ fig }}" style="display:none" alt="demo" class="figs" id="animation_{{ figures.index(fig)|string }}">
+            {% endfor %}       
+           
+    
+            <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+        </div>
+    
+        <div class="inline demo-ct" id="contraint-tree">
+            <h3 id="result-title">CONTRAINT TREE HERE</h3>
+            {% for res in results %}
+                <p class="result-text">{{ res }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container" id="div-buttons">
+        <!-- to-do: move styles  -->
+        <a type="button" class="btn btn-lg btn-primary" href="#"><span class="glyphicon glyphicon-download"></span> Prev</a>
+        <a type="button" class="btn btn-lg btn-primary" onclick="next_img()"><span class="glyphicon glyphicon-download"></span> Next</a>
+    </div>
+
+    <p>Note: Basic CBS may be minutely faster than ICBS for simple Instances</p>
+    <div class="container">
+        {% if message %}
+            <p class="message">{{ message | safe }}</p>
+        {% endif %}
+        <form action="/submit" method="POST">
+            <div>
+
+                <input type="text" name="message" placeholder="Say something...">
+                <input type="submit" value="submit">
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<script>
+    // to-do: create separte js file
+    curr_img_id = 0;
+    curr_img = document.getElementById("animation_"+String(curr_img_id));
+    curr_img.style.display = "revert";
+    
+    function next_img() {
+        imgs = document.getElementByClass('figs');
+        for(let i = 0; i < imgs.length; i++) {
+            if(imgs[i].style.visability == 'visible') { 
+                if (i < imgs.length - 1) {
+                    imgs[i].style.display = 'hidden';
+                    imgs[i+1].style.display = 'revert';
+                }
+            }
+
+        }
+
+    }
+</script>
+
+
+
+{% endblock %}
