@@ -18,11 +18,11 @@ sys.path.append(BASE_PATH)
 
 print(sys.path)
 
-from code.basic_cbs import CBSSolver
-from code.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
-from code.icbs_complete import ICBS_Solver # all improvements including MA-CBS
-from code.single_agent_planner import get_sum_of_cost
-from code.visualize_demo import Animation, Figure
+from util.cbs.basic_cbs import CBSSolver
+from util.cbs.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
+from util.cbs.icbs_complete import ICBS_Solver # all improvements including MA-CBS
+from util.single_agent_planner import get_sum_of_cost
+from util.visualize_demo import Animation, Figure
 
 
 import argparse
@@ -35,7 +35,6 @@ from pathlib import Path
 # from prioritized import PrioritizedPlanningSolver
 
 # from visualize import Animation
-
 
 SOLVER = "ICBS_CB"
 
@@ -239,7 +238,7 @@ if __name__ == '__main__':
         print("***Test paths on a simulation***")
         animation = Animation(my_map, starts, goals, paths)
         # animation.save("output.mp4", 1.0)
-        animation.save('code/demo/fig.gif', 1)
+        animation.save('static/content/figures/test_fig.gif', 1)
         animation.show()
         
 

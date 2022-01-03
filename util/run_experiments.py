@@ -1,18 +1,49 @@
 #!/usr/bin/python
+
+
+# Import the os module
+import os
+
+# Get the current working directory
+cwd = os.getcwd()
+
+# Print the current working directory
+print("Current working directory: {0}".format(cwd))
+
+import sys
+
+
+
+# from basic_cbs import CBSSolver
+# from icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
+# # from icbs_complete import ICBS_Solver # all improvements including MA-CBS
+# from single_agent_planner import get_sum_of_cost
+# from visualize_demo import Animation, Figure
+
+
+
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_PATH)
+
+print(sys.path)
 import argparse
 import glob
 from pathlib import Path
-from basic_cbs import CBSSolver # original cbs with standard/disjoint splitting
+from util.cbs.basic_cbs import CBSSolver # original cbs with standard/disjoint splitting
 
 # cbs with different improvements
-from icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
-from icbs_complete import ICBS_Solver # all improvements including MA-CBS
+from util.cbs.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
+from util.cbs.icbs_complete import ICBS_Solver # all improvements including MA-CBS
 
 
-from independent import IndependentSolver
+from util.a_star.independent import IndependentSolver
 from prioritized import PrioritizedPlanningSolver
 from visualize import Animation
 from single_agent_planner import get_sum_of_cost
+
+
+
+
 
 SOLVER = "CBS"
 

@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 import os
 # from flask_sqlalchemy import SQLAlchemy
-from code.generate_instance import write_instance
-from code.run_experiments_demo import create_plot, create_animation
+from util.generate_instance import write_instance
+from util.run_experiments_demo import create_plot, create_animation
 from threading import Thread
 import time
 
