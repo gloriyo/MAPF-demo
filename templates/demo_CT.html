@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="jumbotron text-center">
-    <h2 class="title">CBS CT with Disjoint Splitting</h2>
+    <h2 class="title">CBS CT with {{ splitter }} Splitting</h2>
 
 
     <div class="cnt">
@@ -22,8 +22,8 @@
     
         <div class="inline demo-ct" id="contraint-tree">
             <h3 id="result-title">CONTRAINT TREE HERE</h3>
-            {% for res in results %}
-                <p class="result-text">{{ res }}</p>
+            {% for CT in CTs %}
+                <img src="{{ CT }}" style="display:none" alt="demo" class="cts" id="ct_{{ CTs.index(CT)|string }}">
             {% endfor %}
         </div>
     </div>
@@ -56,10 +56,11 @@
     curr_img_id = 0;
     curr_img = document.getElementById("animation_"+String(curr_img_id));
     curr_img.style.display = "revert";
-
+    curr_ct = document.getElementById("ct_"+String(curr_img_id));
 
     function next_img() {
         imgs = document.getElementsByClassName('figs');
+        cts = document.getElementsByClassName('cts')
         for(let i = 0; i < imgs.length; i++) {
             console.log(i, imgs[i].style.display);
         }
@@ -68,6 +69,8 @@
                 if (i < imgs.length - 1) {
                     imgs[i].style.display = 'none';
                     imgs[i+1].style.display = 'revert';
+                    cts[i].style.display = 'none';
+                    cts[i+1].style.display = 'revert';
                     console.log("img_id: ");
                     console.log(i)
                     break;
