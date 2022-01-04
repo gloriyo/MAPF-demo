@@ -14,10 +14,10 @@ from cbs_basic_all_nodes import CBSSolver as CBSSolverCT
 
 from cbs_basic import CBSSolver as CBSSolver
 
-from util.cbs.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
-from util.cbs.icbs_complete import ICBS_Solver # all improvements including MA-CBS
-from util.single_agent_planner import get_sum_of_cost
-from util.visualize_demo import Animation, Figure
+# from util.cbs.icbs_cardinal_bypass import ICBS_CB_Solver # only cardinal dectection and bypass
+# from util.cbs.icbs_complete import ICBS_Solver # all improvements including MA-CBS
+# from util.single_agent_planner import get_sum_of_cost
+from visualize_demo import Animation, Figure
 
 
 import argparse
@@ -49,7 +49,11 @@ def print_locations(my_map, locations):
             if starts_map[x][y] >= 0:
                 to_print += str(starts_map[x][y]) + ' '
             elif my_map[x][y]:
-                to_print += '@ '
+                if isinstance(my_map[x][y], str):
+                    to_print += my_map[x][y] + ' '
+                else:
+                    to_print += '@ '
+
             else:
                 to_print += '. '
         to_print += '\n'
@@ -76,6 +80,9 @@ def import_mapf_instance(filename):
                 my_map[-1].append(True)
             elif cell == '.':
                 my_map[-1].append(False)
+            elif cell.strip():
+                my_map[-1].append(cell.strip())
+                print(cell)
     # #agents
     line = f.readline()
     num_agents = int(line)
@@ -211,6 +218,9 @@ if __name__ == '__main__':
 
     print(input_instance)
 
+    output_map = "demo_disjoint_ct/figures/disjoint0.png"
+    create_plot(input_instance, output_map)
+
 
     # input_instance = glob.glob("static/content/instances/new_instance.txt")
 
@@ -228,13 +238,17 @@ if __name__ == '__main__':
         if node['collisions']:
             result_file.write("\t")
             result_file.write(json.dumps(node['collisions'][0]))
+            result_file.write("\n")
         else:
             result_file.write("\tno collision\n")
+        result_file.write("\tconstraints\n")
         if node['constraints']:
             for c in node['constraints']:
                 result_file.write("\t")
                 result_file.write(json.dumps(c))
                 result_file.write("\n")
+        else:
+            result_file.write("\tno constraints\n")
         result_file.write("\n\n")
 
     result_file.close()
@@ -254,6 +268,9 @@ if __name__ == '__main__':
 
     print(input_instance)
 
+    output_map = "demo_disjoint_ct/figures/standard0.png"
+    create_plot(input_instance, output_map)
+
 
     # input_instance = glob.glob("static/content/instances/new_instance.txt")
 
@@ -271,16 +288,26 @@ if __name__ == '__main__':
         if node['collisions']:
             result_file.write("\t")
             result_file.write(json.dumps(node['collisions'][0]))
+            result_file.write("\n")
         else:
-            result_file.write("\tno collision")
+            result_file.write("\tno collision\n")
+        result_file.write("\tconstraints\n")
         if node['constraints']:
             for c in node['constraints']:
                 result_file.write("\t")
                 result_file.write(json.dumps(c))
                 result_file.write("\n")
+        else:
+            result_file.write("\tno constraints\n")
         result_file.write("\n\n")
 
     result_file.close()
+
+
+
+
+
+
 
     # results = create_animation(input_instance, output_fig, "CBS", disjoint)
     # cost = get_sum_of_cost(results[0])

@@ -59,8 +59,8 @@ def demo_CT():
             print(fig_files)
             figure_path_demo.append(figure_path + fig_file)
             print(figure_path + fig_file)
-    else:
-        print("fhsauilfhea")
+
+    figure_path_demo.sort()
     return render_template('demo_CT.html', figures=figure_path_demo, results=[])
 
 
@@ -106,6 +106,7 @@ def figure_cbs():
                 if j < len(pa) - 1:
                     pa_str += "->"
             results.append(pa_str)
+        
     return render_template('generate.html', figure="content/figures/newfigure.gif", results=results)
 
 @app.route('/figure-icbs')

@@ -2,43 +2,58 @@ id: 0, cost:8
 0th expanded
 	collision
 	{"a1": 0, "a2": 1, "loc": [[2, 4]], "timestep": 3}
-
-id: 1, cost:9
-3th expanded
-	collision
-	no collision	{"agent": 1, "loc": [[2, 4]], "timestep": 3, "positive": true}
+	constraints
+	no constraints
 
 
-id: 2, cost:8
+id: 1, cost:8
 1th expanded
 	collision
-	{"a1": 0, "a2": 1, "loc": [[2, 3]], "timestep": 2}	{"agent": 1, "loc": [[2, 4]], "timestep": 3, "positive": false}
+	{"a1": 0, "a2": 1, "loc": [[2, 3]], "timestep": 2}
+	constraints
+	{"agent": 0, "loc": [[2, 4]], "timestep": 3, "positive": true}
+
+
+id: 2, cost:9
+3th expanded
+	collision
+	no collision
+	constraints
+	{"agent": 0, "loc": [[2, 4]], "timestep": 3, "positive": false}
 
 
 id: 3, cost:8
 2th expanded
 	collision
-	{"a1": 0, "a2": 1, "loc": [[2, 2]], "timestep": 1}	{"agent": 0, "loc": [[2, 3]], "timestep": 2, "positive": true}
-	{"agent": 1, "loc": [[2, 4]], "timestep": 3, "positive": false}
+	{"a1": 0, "a2": 1, "loc": [[2, 2]], "timestep": 1}
+	constraints
+	{"agent": 0, "loc": [[2, 3]], "timestep": 2, "positive": true}
+	{"agent": 0, "loc": [[2, 4]], "timestep": 3, "positive": true}
 
 
 id: 4, cost:9
 	collision
-	no collision	{"agent": 0, "loc": [[2, 3]], "timestep": 2, "positive": false}
-	{"agent": 1, "loc": [[2, 4]], "timestep": 3, "positive": false}
+	no collision
+	constraints
+	{"agent": 0, "loc": [[2, 3]], "timestep": 2, "positive": false}
+	{"agent": 0, "loc": [[2, 4]], "timestep": 3, "positive": true}
 
 
 id: 5, cost:9
 	collision
-	no collision	{"agent": 1, "loc": [[2, 2]], "timestep": 1, "positive": true}
+	no collision
+	constraints
+	{"agent": 0, "loc": [[2, 2]], "timestep": 1, "positive": true}
 	{"agent": 0, "loc": [[2, 3]], "timestep": 2, "positive": true}
-	{"agent": 1, "loc": [[2, 4]], "timestep": 3, "positive": false}
+	{"agent": 0, "loc": [[2, 4]], "timestep": 3, "positive": true}
 
 
 id: 6, cost:9
 	collision
-	no collision	{"agent": 1, "loc": [[2, 2]], "timestep": 1, "positive": false}
+	no collision
+	constraints
+	{"agent": 0, "loc": [[2, 2]], "timestep": 1, "positive": false}
 	{"agent": 0, "loc": [[2, 3]], "timestep": 2, "positive": true}
-	{"agent": 1, "loc": [[2, 4]], "timestep": 3, "positive": false}
+	{"agent": 0, "loc": [[2, 4]], "timestep": 3, "positive": true}
 
 

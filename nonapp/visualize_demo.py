@@ -36,11 +36,16 @@ class Figure:
         plt.xlim(x_min, x_max)
         plt.ylim(y_min, y_max)
 
-        self.patches.append(Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, facecolor='none', edgecolor='gray'))
+        self.patches.append(Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, facecolor='none', edgecolor='#d4d0d6'))
+        print(self.my_map)
         for i in range(len(self.my_map)):
             for j in range(len(self.my_map[0])):
-                if self.my_map[i][j]:
-                    self.patches.append(Rectangle((i - 0.5, j - 0.5), 1, 1, facecolor='gray', edgecolor='gray'))
+                if not (self.my_map[i][j] == 'False'):
+                    print("cell ", self.my_map[i][j])
+                    self.patches.append(Rectangle((i - 0.5, j - 0.5), 1, 1, facecolor='#d4d0d6', edgecolor='#d4d0d6'))
+                    if isinstance(self.my_map[i][j], str):
+                        if self.my_map[i][j] != 'True':
+                            self.ax.text(i- 0.1, j- 0.1, self.my_map[i][j], fontsize=20, color='#807785')
 
         # create agents:
         self.T = 0
@@ -130,12 +135,15 @@ class Animation:
         plt.xlim(x_min, x_max)
         plt.ylim(y_min, y_max)
 
-        self.patches.append(Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, facecolor='none', edgecolor='gray'))
+        self.patches.append(Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, facecolor='none', edgecolor='#d4d0d6'))
         for i in range(len(self.my_map)):
             for j in range(len(self.my_map[0])):
-                if self.my_map[i][j]:
-                    self.patches.append(Rectangle((i - 0.5, j - 0.5), 1, 1, facecolor='gray', edgecolor='gray'))
-
+                # if self.my_map[i][j]:
+                if not (self.my_map[i][j] == 'False'):
+                    self.patches.append(Rectangle((i - 0.5, j - 0.5), 1, 1, facecolor='#d4d0d6', edgecolor='#d4d0d6'))
+                    if isinstance(self.my_map[i][j], str):
+                        if self.my_map[i][j] != 'True':
+                            self.ax.text(i- 0.1, j- 0.1, self.my_map[i][j], fontsize=20, color='#807785')
         # create agents:
         self.T = 0
         # draw goals first
