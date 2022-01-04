@@ -88,8 +88,20 @@ div.inline { display: inline-block; }
 
 img {
     width: -webkit-fill-available;
+    vertical-align: top;
+}
+
+.cts {
+    max-height:90%;
+    vertical-align: top;
 }
 
 .demo-ct {
     width: 40%;
+    height: 600px;
+    padding:2%;
+}
+
+.figs {
+    margin-top: 20%;
 }

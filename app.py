@@ -59,6 +59,7 @@ def demo_standardCT():
             print(fig_files)
             figure_path_demo.append(figure_path + fig_file)
             print(figure_path + fig_file)
+    figure_path_demo.sort()
     # get CT graphs
     CT_path = "/content/figures/CT_demo/standard_ct/"
     abs_path = os.path.abspath("static/content/figures/CT_demo/standard_ct")
