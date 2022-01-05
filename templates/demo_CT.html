@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="jumbotron text-center">
+<div class="jumbotron">
     <h2 class="title">CBS CT with {{ splitter }} Splitting</h2>
 
 
@@ -18,21 +18,27 @@
             <a type="button" class="btn btn-lg btn-primary" onclick="next_img()"><span class="glyphicon glyphicon-download"></span> Next</a>
         </div>
 
-        <div class="inline demo-ct figure-container" id="demo-instance">
-            {% for fig in figures %}
-                <img src="{{ fig }}" style="display:none" alt="demo" class="figs" id="animation_{{ figures.index(fig)|string }}">
-            {% endfor %}       
-           
-    
-            <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+        <div class="cnt text-center"id="demo-ct-cnt">
+            <div class="inline demo-ct figure-container" id="demo-ct-animation">
+                {% for fig in figures %}
+                    <img src="{{ fig }}" style="display:none" alt="demo" class="figs" id="animation_{{ figures.index(fig)|string }}">
+                {% endfor %}       
+               
+        
+                <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+            </div>
+        
+            <div class="inline demo-ct" id="demo-ct-graph">
+                <h2 class="title-centered" id="demo-ct-graph-title">Constraint Tree</h2>
+                <h6 style="display:none;" id="before_ct">click next to generate the first node</h6>
+                {% for CT in CTs %}
+                    <img src="{{ CT }}" style="display:none;" alt="demo" class="cts" id="ct_{{ CTs.index(CT)|string }}">
+                {% endfor %}
+            </div>
         </div>
-    
-        <div class="inline demo-ct" id="contraint-tree"">
-            <h3 id="result-title">CONTRAINT TREE HERE</h3>
-            {% for CT in CTs %}
-                <img src="{{ CT }}" style="display:none" alt="demo" class="cts" id="ct_{{ CTs.index(CT)|string }}">
-            {% endfor %}
-        </div>
+
+
+
     </div>
 
 
@@ -61,6 +67,10 @@
     curr_img.style.display = "revert";
     curr_ct = document.getElementById("ct_"+String(curr_img_id));
 
+    before_ct = document.getElementById("before_ct");
+    before_ct.style.display = "revert";
+
+
     function next_img() {
         imgs = document.getElementsByClassName('figs');
         cts = document.getElementsByClassName('cts')
@@ -70,6 +80,9 @@
         for(let i = 0; i < imgs.length; i++) {
             if(imgs[i].style.display == "revert") { 
                 if (i < imgs.length - 1) {
+                    before_ct = document.getElementById("before_ct");
+                    before_ct.style.display = "none";
+
                     imgs[i].style.display = 'none';
                     imgs[i+1].style.display = 'revert';
                     cts[i].style.display = 'none';
@@ -92,6 +105,12 @@
         for(let i = 0; i < imgs.length; i++) {
             if(imgs[i].style.display == "revert") { 
                 if (i > 0) {
+                    if (i == 1) {
+                        before_ct = document.getElementById("before_ct");
+                        before_ct.style.display = "revert";
+                    }
+
+
                     imgs[i].style.display = 'none';
                     imgs[i-1].style.display = 'revert';
                     cts[i].style.display = 'none';
