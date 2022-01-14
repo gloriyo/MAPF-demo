@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
 import os
+import glob
 # from flask_sqlalchemy import SQLAlchemy
-from code.generate_instance import write_instance
-from code.run_experiments_demo import create_plot, create_animation
+from util.generate_instance import write_instance
+from util.run_experiments_demo import create_plot, create_animation
 from threading import Thread
 import time
 
@@ -40,6 +41,65 @@ class Compute(Thread):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/demo-CT/standard')
+def demo_standardCT():
+    # get animation figures
+    figure_path = "/content/figures/CT_demo/standard_figs/expanded_nodes/"
+    abs_path = os.path.abspath("static/content/figures/CT_demo/standard_figs/expanded_nodes") # or globs
+    print(abs_path)
+    # _,_,branches = os.walk(abs_path)
+    branches = os.walk(abs_path)
+    # print("AJJJJJJJJJJJJJJJJFDGADS")
+    figure_path_demo = []
+    for b in branches:
+        print (b)
+        (_,_,fig_files) = b
+        for fig_file in fig_files:
+            print(fig_files)
+            figure_path_demo.append(figure_path + fig_file)
+            print(figure_path + fig_file)
+    figure_path_demo.sort()
+    print(figure_path_demo)
+    # get CT graphs
+    CT_path = "/content/figures/CT_demo/standard_ct/"
+    abs_path = os.path.abspath("static/content/figures/CT_demo/standard_ct")
+    branches = os.walk(abs_path)
+    CT_path_demo = []
+    for b in branches:
+        print (b)
+        (_,_,CT_files) = b
+        for fig_file in CT_files:
+            # print(CT_files)
+            CT_path_demo.append(CT_path + fig_file)
+            # print(CT_path + fig_file)
+    CT_path_demo.sort()
+    print(figure_path_demo)
+    print(CT_path_demo)
+
+
+    return render_template('demo_CT.html', splitter="Standard", figures=figure_path_demo, CTs=CT_path_demo)
+
+@app.route('/demo-CT/disjoint')
+def demo_disjointCT():
+    figure_path = "/content/figures/CT_demo/disjoint_figs/"
+    abs_path = os.path.abspath("static/content/figures/CT_demo/disjoint_figs") # or globs
+    print(abs_path)
+    # _,_,branches = os.walk(abs_path)
+    branches = os.walk(abs_path)
+    # print("AJJJJJJJJJJJJJJJJFDGADS")
+    figure_path_demo = []
+    for b in branches:
+        print (b)
+        (_,_,fig_files) = b
+        for fig_file in fig_files:
+            print(fig_files)
+            figure_path_demo.append(figure_path + fig_file)
+            print(figure_path + fig_file)
+
+    figure_path_demo.sort()
+    return render_template('demo_CT.html', figures=figure_path_demo, results=[])
+
 
 @app.route('/demo')
 def demo():
@@ -83,6 +143,7 @@ def figure_cbs():
                 if j < len(pa) - 1:
                     pa_str += "->"
             results.append(pa_str)
+        
     return render_template('generate.html', figure="content/figures/newfigure.gif", results=results)
 
 @app.route('/figure-icbs')

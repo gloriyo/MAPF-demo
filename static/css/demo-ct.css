@@ -1,0 +1,56 @@
+.cts {
+    max-height:90%;
+    vertical-align: top;
+}
+
+
+#demo-ct-cnt {
+    /* background-color: lavender; 
+     */
+    background-color: #F1F2F6;
+    padding: 3%;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+
+.demo-btns {
+    /* background-color: #7A749A; */
+    background-color: #8864C0;
+}
+
+.demo-ct {
+    width: 40%;
+    height: 600px;
+    padding:2%;
+}
+
+#demo-ct-animation {
+    width: 40%;
+    height: 600px;
+    padding:2%;
+}
+
+#demo-ct-graph {
+    width: 50%;
+    background-color: #d2d2f6; 
+    background-color: #D3C0EF;
+    border-style: solid;
+
+    /* border-color: #8d8d8d; */
+    /* border-color: #D6C4E6; */
+    border-color: #D3C0EF;
+    border-width: 1px;
+}
+
+#demo-ct-graph-title{
+    /* background-color: #7646c1; */
+    background-color: #8864C0;
+
+    margin-bottom: 1.5em;
+    padding: 0.7em;
+}
+
+.figs {
+    margin-top: 20%;
+}

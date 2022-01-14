@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h1>{% block title %}Welcome{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h2 class="title">CBS CT with {{ splitter }} Splitting</h2>
+
+
+    <div class="cnt">
+        
+        <div class="container" id="div-buttons">
+            <!-- to-do: move styles  -->
+            <a type="button" class="btn btn-lg btn-primary" onclick="prev_img()"><span class="glyphicon glyphicon-download"></span> Prev</a>
+            <a type="button" class="btn btn-lg btn-primary" onclick="next_img()"><span class="glyphicon glyphicon-download"></span> Next</a>
+        </div>
+
+        <div class="cnt text-center"id="demo-ct-cnt">
+            <div class="inline demo-ct figure-container" id="demo-ct-animation">
+                {% for fig in figures %}
+                    <img src="{{ fig }}" style="display:none" alt="demo" class="figs" id="animation_{{ figures.index(fig)|string }}">
+                {% endfor %}       
+               
+        
+                <!-- ref to use https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page -->
+            </div>
+        
+            <div class="inline demo-ct" id="demo-ct-graph">
+                <h2 class="title-centered" id="demo-ct-graph-title">Constraint Tree</h2>
+                <h6 style="display:none;" id="before_ct">click next to generate the first node</h6>
+                {% for CT in CTs %}
+                    <img src="{{ CT }}" style="display:none;" alt="demo" class="cts" id="ct_{{ CTs.index(CT)|string }}">
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <p>Note: Basic CBS may be minutely faster than ICBS for simple Instances</p>
+    <div class="container">
+        {% if message %}
+            <p class="message">{{ message | safe }}</p>
+        {% endif %}
+        <form action="/submit" method="POST">
+            <div>
+
+                <input type="text" name="message" placeholder="Say something...">
+                <input type="submit" value="submit">
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<script>
+    // to-do: create separte js file
+    curr_img_id = 0;
+    curr_img = document.getElementById("animation_"+String(curr_img_id));
+    curr_img.style.display = "revert";
+    curr_ct = document.getElementById("ct_"+String(curr_img_id));
+
+    before_ct = document.getElementById("before_ct");
+    before_ct.style.display = "revert";
+
+
+    function next_img() {
+        imgs = document.getElementsByClassName('figs');
+        cts = document.getElementsByClassName('cts')
+        for(let i = 0; i < imgs.length; i++) {
+            console.log(i, imgs[i].style.display);
+        }
+        for(let i = 0; i < imgs.length; i++) {
+            if(imgs[i].style.display == "revert") { 
+                if (i < imgs.length - 1) {
+                    before_ct = document.getElementById("before_ct");
+                    before_ct.style.display = "none";
+
+                    imgs[i].style.display = 'none';
+                    imgs[i+1].style.display = 'revert';
+                    cts[i].style.display = 'none';
+                    cts[i+1].style.display = 'revert';
+                    console.log("img_id: ");
+                    console.log(i)
+                    break;
+                }
+            }
+
+        }
+
+    }
+    function prev_img() {
+        imgs = document.getElementsByClassName('figs');
+        cts = document.getElementsByClassName('cts')
+        for(let i = 0; i < imgs.length; i++) {
+            console.log(i, imgs[i].style.display);
+        }
+        for(let i = 0; i < imgs.length; i++) {
+            if(imgs[i].style.display == "revert") { 
+                if (i > 0) {
+                    if (i == 1) {
+                        before_ct = document.getElementById("before_ct");
+                        before_ct.style.display = "revert";
+                    }
+
+
+                    imgs[i].style.display = 'none';
+                    imgs[i-1].style.display = 'revert';
+                    cts[i].style.display = 'none';
+                    cts[i-1].style.display = 'revert';
+                    console.log("img_id: ");
+                    console.log(i)
+                    break;
+                }
+            }
+
+        }
+
+    }
+</script>
+
+
+
+{% endblock %}
