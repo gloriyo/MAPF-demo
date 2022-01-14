@@ -1,3 +1,4 @@
-code/__pycache__/*
+*__pycache__/*
+util/__pycache__/*
 code/*.txt
 send_email.py
