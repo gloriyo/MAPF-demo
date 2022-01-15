@@ -16,7 +16,7 @@ Improved CBS (ICBS) is an extension of the Conflict Based Search algorithm devel
 In our version of improved CBS, we include an additional improvement to ICBS pertaining to the method in which collision-based constraints are created. A promising, new method for CBS-based MAPF has emerged called *disjoint splitting* which was published in May of this year (2021). Our goal was to combine the established improvements of ICBS with the up-and-coming method of constraint generation. Please see <a href="#background"><strong>Background</strong></a> below or our more detailed [report](final_report.pdf) on the subject for more information.
 
 <!-- ![demo instance](code/demo/fig21.gif) -->
-<img src="code/demo/fig21.gif" alt="demo" width="500"/>
+<img src="util/demo/fig21.gif" alt="demo" width="500"/>
 
 
 ## Installation & Usage ##
