@@ -9,8 +9,8 @@
      */
     background-color: #F1F2F6;
     padding: 3%;
-    padding-left: 6%;
-    padding-right: 6%;
+    text-align: revert!important;
+    aspect-ratio: 16/13;
 }
 
 
@@ -21,18 +21,18 @@
 
 .demo-ct {
     width: 40%;
-    height: 600px;
+    /* height: 600px; */
     padding:2%;
 }
 
 #demo-ct-animation {
-    width: 40%;
-    height: 600px;
+    width: 25%;
+    /* height: 600px; */
     padding:2%;
 }
 
 #demo-ct-graph {
-    width: 50%;
+    width: 70%;
     background-color: #d2d2f6; 
     background-color: #D3C0EF;
     border-style: solid;
@@ -41,6 +41,8 @@
     /* border-color: #D6C4E6; */
     border-color: #D3C0EF;
     border-width: 1px;
+
+    height: -webkit-fill-available;
 }
 
 #demo-ct-graph-title{

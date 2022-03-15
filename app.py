@@ -48,9 +48,7 @@ def demo_standardCT():
     figure_path = "/content/figures/CT_demo/standard_figs/expanded_nodes/"
     abs_path = os.path.abspath("static/content/figures/CT_demo/standard_figs/expanded_nodes") # or globs
     print(abs_path)
-    # _,_,branches = os.walk(abs_path)
     branches = os.walk(abs_path)
-    # print("AJJJJJJJJJJJJJJJJFDGADS")
     figure_path_demo = []
     for b in branches:
         print (b)
@@ -82,12 +80,11 @@ def demo_standardCT():
 
 @app.route('/demo-CT/disjoint')
 def demo_disjointCT():
-    figure_path = "/content/figures/CT_demo/disjoint_figs/"
-    abs_path = os.path.abspath("static/content/figures/CT_demo/disjoint_figs") # or globs
+    # get animation figures
+    figure_path = "/content/figures/CT_demo/disjoint_figs/expanded_nodes/"
+    abs_path = os.path.abspath("static/content/figures/CT_demo/disjoint_figs/expanded_nodes") # or globs
     print(abs_path)
-    # _,_,branches = os.walk(abs_path)
     branches = os.walk(abs_path)
-    # print("AJJJJJJJJJJJJJJJJFDGADS")
     figure_path_demo = []
     for b in branches:
         print (b)
@@ -96,9 +93,48 @@ def demo_disjointCT():
             print(fig_files)
             figure_path_demo.append(figure_path + fig_file)
             print(figure_path + fig_file)
-
     figure_path_demo.sort()
-    return render_template('demo_CT.html', figures=figure_path_demo, results=[])
+    print(figure_path_demo)
+    # get CT graphs
+    CT_path = "/content/figures/CT_demo/disjoint_ct/"
+    abs_path = os.path.abspath("static/content/figures/CT_demo/disjoint_ct")
+    branches = os.walk(abs_path)
+    CT_path_demo = []
+    for b in branches:
+        print (b)
+        (_,_,CT_files) = b
+        for fig_file in CT_files:
+            # print(CT_files)
+            CT_path_demo.append(CT_path + fig_file)
+            # print(CT_path + fig_file)
+    CT_path_demo.sort()
+    print(figure_path_demo)
+    print(CT_path_demo)
+
+
+    return render_template('demo_CT.html', splitter="Disjoint", figures=figure_path_demo, CTs=CT_path_demo)
+
+
+
+# @app.route('/demo-CT/disjoint')
+# def demo_disjointCT():
+#     figure_path = "/content/figures/CT_demo/disjoint_figs/"
+#     abs_path = os.path.abspath("static/content/figures/CT_demo/disjoint_figs") # or globs
+#     print(abs_path)
+#     # _,_,branches = os.walk(abs_path)
+#     branches = os.walk(abs_path)
+#     # print("AJJJJJJJJJJJJJJJJFDGADS")
+#     figure_path_demo = []
+#     for b in branches:
+#         print (b)
+#         (_,_,fig_files) = b
+#         for fig_file in fig_files:
+#             print(fig_files)
+#             figure_path_demo.append(figure_path + fig_file)
+#             print(figure_path + fig_file)
+
+#     figure_path_demo.sort()
+#     return render_template('demo_CT.html', figures=figure_path_demo, results=[])
 
 
 @app.route('/demo')
