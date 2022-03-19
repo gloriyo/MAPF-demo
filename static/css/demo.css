@@ -9,7 +9,7 @@
 }
 
 #result-title {
-    background-color: #7646c1;
+    background-color: #6e45afce;
     margin-bottom: 1.5em;
     padding: 0.7em;
     padding-left: 1em;
@@ -19,7 +19,7 @@
 div.result-textbox {
     text-align: left !important;
     vertical-align: middle;
-    background-color: #d9ccee;
+    background-color: #d9cceed0;
     height: 480px;
     /* padding: 2rem; */
     /* max-width: 40em; */

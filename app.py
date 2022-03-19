@@ -42,6 +42,12 @@ class Compute(Thread):
 def index():
     return render_template('index.html')
 
+
+@app.route('/background')
+def background():
+    return render_template('background.html')
+
+
 @app.route('/demo-CT/standard')
 def demo_standardCT():
     # get animation figures

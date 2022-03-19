@@ -8,7 +8,7 @@
 }
 .nav > a {
     /* (80px - line-height of 27px) / 2 = 26.5px */
-    padding-right:10px;
+    padding-right:15px;
 }
 
 .nav-item {
@@ -18,7 +18,7 @@
 
 .nav a{
 /* color: white !important; */
-    font-size: 1em !important;
+    font-size: 1.2em !important;
 }
 
 .navbar-brand {
