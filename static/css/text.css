@@ -1,12 +1,17 @@
 .text-cnt {
     color: #676186;
     padding: 4em 6em;
-    max-width: 75%;
+    max-width: 95%;
+    max-width: 1200px;
 }
 
 
 .text-cnt p {
     color: #502f85;
     /* max-width: 75%; */
-    margin: 1em auto 2em
+    margin: 2em 0;
+    max-width: 100%;
+    text-indent: 50px;
+    font-size: 1.2em;
+    
 }
