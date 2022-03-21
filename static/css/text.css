@@ -9,9 +9,18 @@
 .text-cnt p {
     color: #502f85;
     /* max-width: 75%; */
-    margin: 2em 0;
+    /* margin: 2em 0; */
     max-width: 100%;
     text-indent: 50px;
     font-size: 1.2em;
     
+}
+
+.text-cnt h2 {
+    margin-bottom: 1em!important;
+}
+
+.text-cnt h4 {
+    margin-bottom: 1em!important;
+    font-style: italic;
 }
