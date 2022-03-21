@@ -1,0 +1,12 @@
+.text-cnt {
+    color: #676186;
+    padding: 4em 6em;
+    max-width: 75%;
+}
+
+
+.text-cnt p {
+    color: #502f85;
+    /* max-width: 75%; */
+    margin: 1em auto 2em
+}
