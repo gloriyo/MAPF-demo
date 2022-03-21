@@ -18,7 +18,7 @@
             <a type="button" class="btn btn-lg btn-primary" onclick="next_img()"><span class="glyphicon glyphicon-download"></span> Next</a>
         </div>
 
-        <div class="cnt text-center"id="demo-ct-cnt">
+        <div class="cnt text-center"id="demo-ct-cnt" style="max-width: 1000px;">
             <div class="inline demo-ct figure-container" id="demo-ct-animation">
                 {% for fig in figures %}
                     <img src="{{ fig }}" style="display:none" alt="demo" class="figs" id="animation_{{ figures.index(fig)|string }}">

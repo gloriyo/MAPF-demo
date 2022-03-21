@@ -7,10 +7,12 @@
 #demo-ct-cnt {
     /* background-color: lavender; 
      */
+    max-width: 1200px;
     background-color: #F1F2F6;
     padding: 3%;
     text-align: revert!important;
     aspect-ratio: 16/13;
+    
 }
 
 
@@ -26,13 +28,13 @@
 }
 
 #demo-ct-animation {
-    width: 25%;
+    width: 30%;
     /* height: 600px; */
     padding:2%;
 }
 
 #demo-ct-graph {
-    width: 70%;
+    width: 65%;
     background-color: #d2d2f6; 
     background-color: #D3C0EF;
     border-style: solid;
@@ -43,6 +45,8 @@
     border-width: 1px;
 
     height: -webkit-fill-available;
+    /* max-width: 800px;
+    height: auto; */
 }
 
 #demo-ct-graph-title{
